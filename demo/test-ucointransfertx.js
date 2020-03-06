@@ -2,7 +2,7 @@
 console.error('\n=====RUN-TEST-UCOINTRANSFERTX-START=====\n')
 
 var { WaykiTransaction, Wallet } = require("../index")
-var wallet = new Wallet("Y8JhshTg5j2jeTrwk3qBJDYGi5MVsAvfBJRgFfAp14T91UY9AHgZ")
+var wallet = new Wallet("YCz917w8rBhV7wCiuUBEHySpFCxr59XnC7SNqapSUVNTn8ebLSM1")
 
 /*
 Build a transaction for common transfer
@@ -26,22 +26,25 @@ note:
 5、transferAmount:转账金额
 6、coinSymbol:币种类型
 7、feeSymbol:小费类型,
-8、destAddress:收款地址
+8、destUserId:收款地址或者收款regid
 */
 
-var coinSymbol = "WUSD"
-var destAddr = 'wh82HNEDZkZP2eVAS5t7dDxmJWqyx9gr65'
-var transferAmount = 32432
+var coinSymbol = "WICC"
 var destArr = [{
   "coinSymbol": coinSymbol,
-  "destAddress": destAddr,
-  "transferAmount": transferAmount
+  "destUserId": '981018-2',  //regid or address
+  "transferAmount": 32432
+},
+{
+  "coinSymbol": coinSymbol,
+  "destUserId": "wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4",  //regid or address
+  "transferAmount":100000000
 }
 ]
 var cointransferTxinfo = {
   nTxType: 11,
-  nValidHeight: 602371,
-  fees: 100000,
+  nValidHeight: 3740435,
+  fees: 1000000,
   srcRegId: '', //When srcRegId is available, use RegID as priority since it cost 0.001 WICC trx fees otherwise it'll be 0.002 WICC
   dests: destArr,
   memo: "test transfer",// remark, optional field

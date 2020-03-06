@@ -122,10 +122,25 @@ WriterHelper.prototype.writeCdpAsset = function (map) {
     this.writeVarintNum(destArr.length);
 
     for (var i = 0; i < destArr.length; i++) {
-      var addr = Address.fromString(destArr[i].destAddr, network, 'pubkeyhash')
-      var size = addr.hashBuffer.length
-      this.writeUInt8(size)
-      this.write(addr.hashBuffer)
+      if(destArr[i].destAddr.indexOf("-")>-1){
+        var REGID = Util.splitRegID(destArr[i].destAddr)
+        if (_.isNull(REGID.height) || _.isUndefined(REGID.height))
+          return false
+        var regWriter = new BufferWriter()
+        var regHeightBuf = Util.writeVarInt(4, REGID.height)
+        regWriter.write(regHeightBuf)
+        var regIndexBuf = Util.writeVarInt(2, REGID.index)
+        regWriter.write(regIndexBuf)
+    
+        var regBuf = regWriter.toBuffer()
+        this.writeUInt8(regBuf.length)
+        this.write(regBuf)
+      }else{
+        var addr = Address.fromString(destArr[i].destAddr, network, 'pubkeyhash')
+        var size = addr.hashBuffer.length
+        this.writeUInt8(size)
+        this.write(addr.hashBuffer)
+      }
       this.writeString(destArr[i].coinType)
       this.writeVarInt(8, destArr[i].value)
     }

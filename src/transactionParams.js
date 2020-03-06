@@ -107,7 +107,7 @@ var transactionParams = function (arg, wallet) {
                 arg.dests.map(item => {
                     list.push({
                         coinType: item.coinSymbol,
-                        destAddr: item.destAddress,
+                        destAddr: item.destUserId,
                         value: item.transferAmount
                     })
                 })
